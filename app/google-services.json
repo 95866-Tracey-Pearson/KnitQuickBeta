@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "326147727908",
+    "firebase_url": "https://knitquickbeta-v1.firebaseio.com",
+    "project_id": "knitquickbeta-v1",
+    "storage_bucket": "knitquickbeta-v1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:326147727908:android:3abe8bab746d4b85ec2eb1",
+        "android_client_info": {
+          "package_name": "com.knitquick.knitquickbeta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "326147727908-7ba5a1ge2a5r0bp5mr9rre3rs95apeb5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBs3q6fLAHct7QVTsPDSbSYQdTxr_pPnkA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "326147727908-7ba5a1ge2a5r0bp5mr9rre3rs95apeb5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
