@@ -16,6 +16,7 @@ import com.knitquick.knitquickbeta.model.User
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
+// TODO (Step 6: Implement the NavigationView.OnNavigationItemSelectedListener and add the implement members of it.)
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     /**
@@ -28,17 +29,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         // This is used to align the xml view to this class
         setContentView(R.layout.activity_main)
 
+
         setupActionBar()
-
-        // Assign the NavigationView.OnNavigationItemSelectedListener to navigation view.
-        nav_view.setNavigationItemSelectedListener(this)
-
-        // TODO (Step 3: Call a function to get the current logged in user details.)
-        // START
-        // Get the current logged in user details.
-        FirestoreClass().signInUser(this@MainActivity)
+       nav_view.setNavigationItemSelectedListener(this)
         // END
+        FirestoreClass().signInUser(this)
     }
+
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
@@ -48,8 +45,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             doubleBackToExit()
         }
     }
+    // END
+
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
+
         when (menuItem.itemId) {
             R.id.nav_my_profile -> {
 
@@ -68,12 +68,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
         }
         drawer_layout.closeDrawer(GravityCompat.START)
+        // END
         return true
     }
 
-    /**
-     * A function to setup action bar
-     */
     private fun setupActionBar() {
 
         setSupportActionBar(toolbar_main_activity)
@@ -82,11 +80,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         toolbar_main_activity.setNavigationOnClickListener {
             toggleDrawer()
         }
+
     }
 
-    /**
-     * A function for opening and closing the Navigation Drawer.
-     */
     private fun toggleDrawer() {
 
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
@@ -96,19 +92,14 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
     }
 
-    // TODO (Step 5: Create a function to update the user details in the navigation view.)
-    // START
-    /**
-     * A function to get the current user details from firebase.
-     */
     fun updateNavigationUserDetails(user: User) {
-        // The instance of the header view of the navigation view.
+
         val headerView = nav_view.getHeaderView(0)
 
-        // The instance of the user image of the navigation view.
+
         val navUserImage = headerView.findViewById<ImageView>(R.id.iv_user_image)
 
-        // Load the user image in the ImageView.
+
         Glide
             .with(this@MainActivity)
             .load(user.image) // URL of the image
@@ -116,11 +107,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             .placeholder(R.drawable.ic_user_place_holder) // A default place holder
             .into(navUserImage) // the view in which the image will be loaded.
 
-        // The instance of the user name TextView of the navigation view.
+
         val navUsername = headerView.findViewById<TextView>(R.id.tv_username)
-        // Set the user name
+
         navUsername.text = user.name
     }
     // END
 }
-

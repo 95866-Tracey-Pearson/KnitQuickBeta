@@ -42,4 +42,5 @@ class IntroActivity : AppCompatActivity() {
             startActivity(Intent(this@IntroActivity, SignUpActivity::class.java))
         }
     }
+
 }
