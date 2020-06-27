@@ -33,7 +33,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         setupActionBar()
        nav_view.setNavigationItemSelectedListener(this)
         // END
-        FirestoreClass().signInUser(this)
+        FirestoreClass().loadUserData(this@MainActivity)
     }
 
 
@@ -53,7 +53,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         when (menuItem.itemId) {
             R.id.nav_my_profile -> {
 
-                Toast.makeText(this@MainActivity, "My Profile", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this@MainActivity, MyProfileActivity::class.java))
             }
 
             R.id.nav_sign_out -> {

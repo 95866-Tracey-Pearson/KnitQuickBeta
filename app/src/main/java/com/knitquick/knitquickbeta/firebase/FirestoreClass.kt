@@ -6,6 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.knitquick.knitquickbeta.activities.MainActivity
+import com.knitquick.knitquickbeta.activities.MyProfileActivity
 import com.knitquick.knitquickbeta.activities.SignInActivity
 import com.knitquick.knitquickbeta.activities.SignUpActivity
 import com.knitquick.knitquickbeta.model.User
@@ -44,7 +45,7 @@ class FirestoreClass {
     /**
      * A function to SignIn using firebase and get the user details from Firestore Database.
      */
-    fun signInUser(activity: Activity) {
+    fun loadUserData(activity: Activity) {
 
         // Here we pass the collection name from which we wants the data.
         mFireStore.collection(Constants.USERS)
@@ -65,6 +66,9 @@ class FirestoreClass {
                     is MainActivity -> {
                         activity.updateNavigationUserDetails(loggedInUser)
                     }
+                    is MyProfileActivity -> {
+                        activity.setUserDataInUI(loggedInUser)
+                    }
                 }
             }
             .addOnFailureListener { e ->
@@ -74,6 +78,9 @@ class FirestoreClass {
                         activity.hideProgressDialog()
                     }
                     is MainActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                    is MyProfileActivity -> {
                         activity.hideProgressDialog()
                     }
                 }

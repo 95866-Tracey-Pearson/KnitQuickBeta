@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--TODO (Step 3: Design the My Profile Screen view.)-->
-<!--START-->
-<!--All the constant values are added in their folders and files :
-       1. Drawable values are added in the drawable folders.
-       2. String values in the strings.xml file.
-       3. Dimen values in the dimens.xml file.
--->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -31,7 +24,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/knitquick_background">
+        android:background="@drawable/ic_background">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -50,8 +43,9 @@
                 android:orientation="vertical"
                 android:padding="@dimen/my_profile_screen_content_padding">
 
+                <!--TODO (Step 2: Rename the iv_user_image to iv_profile_user_image)-->
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/iv_user_image"
+                    android:id="@+id/iv_profile_user_image"
                     android:layout_width="@dimen/my_profile_user_image_size"
                     android:layout_height="@dimen/my_profile_user_image_size"
                     android:contentDescription="@string/image_contentDescription"
@@ -76,7 +70,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/my_profile_et_email_marginTop">
 
-                    <!--TODO (Step 4: Here we make the email EditText as focusable false. As it should not be editable.)-->
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/et_email"
                         android:layout_width="match_parent"
@@ -121,4 +114,4 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
-</LinearLayout><!--END-->
+</LinearLayout>

@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/knitquick_background"
+    android:background="@drawable/ic_background"
     android:orientation="vertical"
     tools:context=".activities.SignUpActivity">
 
