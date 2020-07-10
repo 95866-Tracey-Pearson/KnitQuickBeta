@@ -2,16 +2,18 @@ package com.knitquick.knitquickbeta.firebase
 
 import android.app.Activity
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.knitquick.knitquickbeta.activities.MainActivity
-import com.knitquick.knitquickbeta.activities.MyProfileActivity
-import com.knitquick.knitquickbeta.activities.SignInActivity
-import com.knitquick.knitquickbeta.activities.SignUpActivity
+import com.knitquick.knitquickbeta.activities.*
+import com.knitquick.knitquickbeta.model.Board
 import com.knitquick.knitquickbeta.model.User
 import com.knitquick.knitquickbeta.utils.Constants
 
+/**
+ * A custom class where we will add the operation performed for the firestore database.
+ */
 class FirestoreClass {
 
     // Create a instance of Firebase Firestore
@@ -91,6 +93,57 @@ class FirestoreClass {
                 )
             }
     }
+
+    /**
+     * A function to update the user profile data into the database.
+     */
+    fun updateUserProfileData(activity: MyProfileActivity, userHashMap: HashMap<String, Any>) {
+        mFireStore.collection(Constants.USERS) // Collection Name
+            .document(getCurrentUserID()) // Document ID
+            .update(userHashMap) // A hashmap of fields which are to be updated.
+            .addOnSuccessListener {
+                // Profile data is updated successfully.
+                Log.e(activity.javaClass.simpleName, "Profile Data updated successfully!")
+
+                Toast.makeText(activity, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
+
+                // Notify the success result.
+                activity.profileUpdateSuccess()
+            }
+            .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while creating a board.",
+                    e
+                )
+            }
+    }
+
+    // TODO (Step 9: Create a function for creating a board and making an entry in the database.)
+    // START
+    fun createBoard(activity: CreateBoardActivity, board: Board) {
+
+        mFireStore.collection(Constants.BOARDS)
+            .document()
+            .set(board, SetOptions.merge())
+            .addOnSuccessListener {
+                Log.e(activity.javaClass.simpleName, "Board created successfully.")
+
+                Toast.makeText(activity, "Board created successfully.", Toast.LENGTH_SHORT).show()
+
+                activity.boardCreatedSuccessfully()
+            }
+            .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while creating a board.",
+                    e
+                )
+            }
+    }
+    // END
 
     /**
      * A function for getting the user id of current logged user.

@@ -1,7 +1,9 @@
 package com.knitquick.knitquickbeta.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
@@ -13,11 +15,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.knitquick.knitquickbeta.R
 import com.knitquick.knitquickbeta.firebase.FirestoreClass
 import com.knitquick.knitquickbeta.model.User
+import com.knitquick.knitquickbeta.utils.Constants
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
-// TODO (Step 6: Implement the NavigationView.OnNavigationItemSelectedListener and add the implement members of it.)
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    // TODO (Step 2: Create a global variable for user name)
+    // START
+    private lateinit var mUserName: String
+    // END
 
     /**
      * This function is auto created by Android when the Activity Class is created.
@@ -29,13 +36,23 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         // This is used to align the xml view to this class
         setContentView(R.layout.activity_main)
 
-
         setupActionBar()
-       nav_view.setNavigationItemSelectedListener(this)
-        // END
-        FirestoreClass().loadUserData(this@MainActivity)
-    }
 
+        // Assign the NavigationView.OnNavigationItemSelectedListener to navigation view.
+        nav_view.setNavigationItemSelectedListener(this)
+
+        // Get the current logged in user details.
+        FirestoreClass().loadUserData(this@MainActivity)
+
+        fab_create_board.setOnClickListener {
+            // TODO (Step 4: Pass the user name through intent to CreateBoardScreen.)
+            // START
+            val intent = Intent(this@MainActivity, CreateBoardActivity::class.java)
+            intent.putExtra(Constants.NAME, mUserName)
+            startActivity(intent)
+            // END
+        }
+    }
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
@@ -45,15 +62,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             doubleBackToExit()
         }
     }
-    // END
-
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
-
         when (menuItem.itemId) {
             R.id.nav_my_profile -> {
 
-                startActivity(Intent(this@MainActivity, MyProfileActivity::class.java))
+                startActivityForResult(Intent(this@MainActivity, MyProfileActivity::class.java), MY_PROFILE_REQUEST_CODE)
             }
 
             R.id.nav_sign_out -> {
@@ -68,10 +82,25 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
         }
         drawer_layout.closeDrawer(GravityCompat.START)
-        // END
         return true
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK
+            && requestCode == MY_PROFILE_REQUEST_CODE
+        ) {
+            // Get the user updated details.
+            FirestoreClass().loadUserData(this@MainActivity)
+        } else {
+            Log.e("Cancelled", "Cancelled")
+        }
+    }
+
+    /**
+     * A function to setup action bar
+     */
     private fun setupActionBar() {
 
         setSupportActionBar(toolbar_main_activity)
@@ -80,9 +109,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         toolbar_main_activity.setNavigationOnClickListener {
             toggleDrawer()
         }
-
     }
 
+    /**
+     * A function for opening and closing the Navigation Drawer.
+     */
     private fun toggleDrawer() {
 
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
@@ -92,14 +123,23 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
     }
 
+    /**
+     * A function to get the current user details from firebase.
+     */
     fun updateNavigationUserDetails(user: User) {
 
+        // TODO (Step 3: Initialize the UserName variable.)
+        // START
+        mUserName = user.name
+        // END
+
+        // The instance of the header view of the navigation view.
         val headerView = nav_view.getHeaderView(0)
 
-
+        // The instance of the user image of the navigation view.
         val navUserImage = headerView.findViewById<ImageView>(R.id.iv_user_image)
 
-
+        // Load the user image in the ImageView.
         Glide
             .with(this@MainActivity)
             .load(user.image) // URL of the image
@@ -107,10 +147,17 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             .placeholder(R.drawable.ic_user_place_holder) // A default place holder
             .into(navUserImage) // the view in which the image will be loaded.
 
-
+        // The instance of the user name TextView of the navigation view.
         val navUsername = headerView.findViewById<TextView>(R.id.tv_username)
-
+        // Set the user name
         navUsername.text = user.name
     }
-    // END
+
+    /**
+     * A companion object to declare the constants.
+     */
+    companion object {
+        //A unique code for starting the activity for result
+        const val MY_PROFILE_REQUEST_CODE: Int = 11
+    }
 }
