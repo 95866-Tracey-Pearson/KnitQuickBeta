@@ -7,24 +7,20 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.view.GravityCompat
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.knitquick.knitquickbeta.R
 import com.knitquick.knitquickbeta.firebase.FirestoreClass
-import com.knitquick.knitquickbeta.model.User
-import com.knitquick.knitquickbeta.utils.Constants
+import com.knitquick.knitquickbeta.models.User
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    // TODO (Step 2: Create a global variable for user name)
-    // START
+    // A global variable for User Name
     private lateinit var mUserName: String
-    // END
 
     /**
      * This function is auto created by Android when the Activity Class is created.
@@ -44,14 +40,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         // Get the current logged in user details.
         FirestoreClass().loadUserData(this@MainActivity)
 
-        fab_create_board.setOnClickListener {
-            // TODO (Step 4: Pass the user name through intent to CreateBoardScreen.)
-            // START
+        /*fab_create_board.setOnClickListener {
             val intent = Intent(this@MainActivity, CreateBoardActivity::class.java)
             intent.putExtra(Constants.NAME, mUserName)
             startActivity(intent)
-            // END
-        }
+        }*/
     }
 
     override fun onBackPressed() {
@@ -128,10 +121,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
      */
     fun updateNavigationUserDetails(user: User) {
 
-        // TODO (Step 3: Initialize the UserName variable.)
-        // START
         mUserName = user.name
-        // END
 
         // The instance of the header view of the navigation view.
         val headerView = nav_view.getHeaderView(0)

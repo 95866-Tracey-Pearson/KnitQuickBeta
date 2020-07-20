@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -16,7 +15,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.knitquick.knitquickbeta.R
 import com.knitquick.knitquickbeta.firebase.FirestoreClass
-import com.knitquick.knitquickbeta.model.User
+import com.knitquick.knitquickbeta.models.User
 import com.knitquick.knitquickbeta.utils.Constants
 import kotlinx.android.synthetic.main.activity_my_profile.*
 import java.io.IOException
@@ -177,7 +176,8 @@ class MyProfileActivity : BaseActivity() {
             //getting the storage reference
             val sRef: StorageReference = FirebaseStorage.getInstance().reference.child(
                 "USER_IMAGE" + System.currentTimeMillis() + "."
-                        + Constants.getFileExtension(this@MyProfileActivity, mSelectedImageFileUri)
+                        + Constants.getFileExtension
+                    (this@MyProfileActivity, mSelectedImageFileUri)
             )
 
             //adding the file to reference

@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.knitquick.knitquickbeta.R
 import com.knitquick.knitquickbeta.firebase.FirestoreClass
-import com.knitquick.knitquickbeta.model.User
+import com.knitquick.knitquickbeta.models.User
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUpActivity : BaseActivity() {

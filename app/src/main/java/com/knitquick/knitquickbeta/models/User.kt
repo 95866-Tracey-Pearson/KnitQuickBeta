@@ -1,4 +1,4 @@
-package com.knitquick.knitquickbeta.model
+package com.knitquick.knitquickbeta.models
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -10,14 +10,16 @@ data class User(
     val image: String = "",
     val mobile: Long = 0,
     val fcmToken: String = ""
-) : Parcelable {
-    constructor(source: Parcel) : this(
-        source.readString()!!,
-        source.readString()!!,
-        source.readString()!!,
-        source.readString()!!,
-        source.readLong(),
-        source.readString()!!
+)
+
+    :Parcelable {
+    constructor(parcel: Parcel) : this (
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readLong(),
+        parcel.readString()!!
     )
 
     override fun describeContents() = 0

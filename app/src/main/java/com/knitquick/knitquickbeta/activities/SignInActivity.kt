@@ -8,7 +8,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.knitquick.knitquickbeta.R
 import com.knitquick.knitquickbeta.firebase.FirestoreClass
-import com.knitquick.knitquickbeta.model.User
+import com.knitquick.knitquickbeta.models.User
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
 

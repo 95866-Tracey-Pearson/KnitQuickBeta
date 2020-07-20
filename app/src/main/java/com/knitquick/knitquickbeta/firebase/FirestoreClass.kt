@@ -7,8 +7,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.knitquick.knitquickbeta.activities.*
-import com.knitquick.knitquickbeta.model.Board
-import com.knitquick.knitquickbeta.model.User
+import com.knitquick.knitquickbeta.models.User
 import com.knitquick.knitquickbeta.utils.Constants
 
 /**
@@ -114,36 +113,12 @@ class FirestoreClass {
                 activity.hideProgressDialog()
                 Log.e(
                     activity.javaClass.simpleName,
-                    "Error while creating a board.",
+                    "Error while updating profile.",
                     e
                 )
             }
     }
 
-    // TODO (Step 9: Create a function for creating a board and making an entry in the database.)
-    // START
-    fun createBoard(activity: CreateBoardActivity, board: Board) {
-
-        mFireStore.collection(Constants.BOARDS)
-            .document()
-            .set(board, SetOptions.merge())
-            .addOnSuccessListener {
-                Log.e(activity.javaClass.simpleName, "Board created successfully.")
-
-                Toast.makeText(activity, "Board created successfully.", Toast.LENGTH_SHORT).show()
-
-                activity.boardCreatedSuccessfully()
-            }
-            .addOnFailureListener { e ->
-                activity.hideProgressDialog()
-                Log.e(
-                    activity.javaClass.simpleName,
-                    "Error while creating a board.",
-                    e
-                )
-            }
-    }
-    // END
 
     /**
      * A function for getting the user id of current logged user.
